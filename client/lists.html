@@ -1,0 +1,19 @@
+<!--lists.html: Code associated with To-Do lists, rather than todo items-->
+
+<template name="lists">
+  <h2>Lists</h2>
+  {{> addList}}
+  <ul>
+    {{#each list}}
+      <li>{{name}}</li>
+      {{/each}}
+  </ul> 
+</template> 
+
+<!--Form to create new to-do lists-->
+<template name="addList">
+  <form>
+    Create a list:
+    <input type="text" name="listName" placeholder="List name here..."/>
+  </form>
+</template>

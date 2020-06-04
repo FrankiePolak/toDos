@@ -1,0 +1,32 @@
+/* Global formatting */
+
+li [name=toDoItem]{
+    list-style: none; /* remove bullets */
+}
+
+[name=toDoItem]{
+    border: none;
+    font-family: "Times New Roman"; /* make the font match the rest of the page */
+    font-size: 100%; /* make the font match the rest of the page */
+    padding: 0.15em; 
+}
+
+[name=toDoItem]:hover{
+    background-color: #f9f9f9; /* grey */
+    cursor: pointer; /* gloved hand */
+}
+
+[name=toDoItem]:focus{
+    background-color: #f9f9f9; /* grey */
+    cursor: default; /* arrow */
+}
+
+.checked{
+    background-color: #f0f0f0; /* darker grey tan #f9f9f9 */
+    color: #666; /* text colour: grey */
+}
+
+.checked [name=toDoItem]{
+    text-decoration: line-through;
+    background-color: #f0f0f0;
+}

@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 // import Accounts from accounts-password
 // import Meteor.loginWithPassword from accounts-password
+// import Router from iron:router
 
 import './accounts.html';
 
@@ -31,7 +32,10 @@ Template.login.events({
 	    if (error){
 		console.log(error.reason);
 	    } else {
-		Router.go('home');
+		var currentRoute = Router.current().route.getName();
+		if (currentRoute === 'login'){
+		    Router.go('home');
+		} // else remain on currentRoute
 	    }
 	});
     },

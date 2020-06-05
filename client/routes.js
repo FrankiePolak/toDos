@@ -30,13 +30,23 @@ Router.route('/login', {
 
 /** 
  * The page for one to-do list
- * @this the route or the URL?
+ * @this the route
  */
 Router.route('/list/:_id', {
+    onBeforeAction: function(){
+	var currentUser = Meteor.userId();
+	if (currentUser){ // logged in
+	    this.next(); // execute the route normally
+	} else { // logged out
+	    this.render('login'); // switch to the login template
+	}
+    },
     name: 'listPage',
     template: 'listPage',
     data: function(){
 	var currentList = this.params._id;
-	return Lists.findOne(currentList);
-    }
+	var currentUser = Meteor.userId();
+	return Lists.findOne({ _id: currentList, createdBy: currentUser });
+    },
 });
+    

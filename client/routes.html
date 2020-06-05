@@ -4,7 +4,9 @@
 <template name="main">
   <h1>To-Dos</h1>
   {{> navigation}}
-  {{> lists}}
+  {{#if currentUser}}
+    {{> lists}}
+  {{/if}}
   {{> yield}}
   <hr/>
   <p>Copyright &copy; Todos, 2014-2015.</p>
@@ -12,8 +14,4 @@
 
 <template name="home">
   <p>Welcome to the To-Dos application.</p>
-</template> 
-
-<template name="login">
-  <h2>Log In</h2>
 </template>

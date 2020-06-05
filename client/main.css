@@ -1,6 +1,6 @@
 /* Global formatting */
 
-li [name=toDoItem]{
+li{
     list-style: none; /* remove bullets */
 }
 

@@ -6,13 +6,14 @@ import './toDos.html';
 
 Template.toDos.helpers({
     /** 
-     * Returns the ToDos from the current list.
+     * Returns the ToDos from the current list that belong to the current user.
      * @returns {Mongo.Collection}
      * @this the list from {{#each list}}
      */
     toDo(){
 	var currentList = this._id;
-	return ToDos.find({ listId: currentList },
+	var currentUser = Meteor.userId();
+	return ToDos.find({ listId: currentList, createdBy: currentUser },
 			  {sort: { createdAt: -1 }});
     },
 });
@@ -46,11 +47,13 @@ Template.addToDo.events({
     'submit form'(event){
 	event.preventDefault(); // prevent the page from refreshing
 	var name = $('[name="toDoName"]').val(); // add a new toDo
+	var createdBy = Meteor.userId();
 	var listId = this._id;
 	ToDos.insert({
 	    name,
 	    completed: false,
 	    createdAt: new Date(),
+	    createdBy,
 	    listId
 	});
 	$('[name="toDoName"]').val(''); // clear the input box after submitting

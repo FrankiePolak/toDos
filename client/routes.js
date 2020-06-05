@@ -6,7 +6,7 @@ import './routes.html';
 
 import './navigation.js';
 import './lists.js';
-import './register.js';
+import './accounts.js';
 
 /** Route that appears on every page */
 Router.configure({

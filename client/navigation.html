@@ -3,8 +3,13 @@
   <p>
     <a href="{{pathFor route='home'}}">Home</a>
     &nbsp; <!--tab-->
-    <a href="{{pathFor route='register'}}">Register</a>
-    &nbsp;
-    <a href="{{pathFor route='login'}}">Log In</a>
+    {{#if currentUser}}
+      <a href="#" class="logout">Logout</a>
+      &nbsp;
+    {{else}}
+      <a href="{{pathFor route='register'}}">Register</a>
+      &nbsp;
+      <a href="{{pathFor route='login'}}">Log In</a>
+    {{/if}}
   </p>
 </template>

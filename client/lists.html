@@ -1,13 +1,15 @@
 <!--lists.html: Code associated with To-Do lists, rather than todo items-->
 
+<!--list of lists to include in the 'main' template-->
 <template name="lists">
   <h2>Lists</h2>
   {{> addList}}
-  <ul>
+  <p>
     {{#each list}}
-      <li>{{name}}</li>
-      {{/each}}
-  </ul> 
+      <a href="{{pathFor route='listPage'}}">{{name}}</a>
+      &nbsp;
+    {{/each}}
+  </p> 
 </template> 
 
 <!--Form to create new to-do lists-->
@@ -16,4 +18,9 @@
     Create a list:
     <input type="text" name="listName" placeholder="List name here..."/>
   </form>
+</template>
+
+<template name="listPage">
+  <h2>Tasks: {{name}}</h2> 
+  {{> toDos}}
 </template>

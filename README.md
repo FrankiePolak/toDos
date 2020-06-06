@@ -11,6 +11,7 @@ client/main.js  <- routes.js  <- routes.html
 						<- toDos.js               <- toDos.html
 						      			  <- ToDos from ../both.js
 			      <- accounts.js    <- accounts.html
+			      	 		<- validatorDefaults.js
 
 client/main.css
 

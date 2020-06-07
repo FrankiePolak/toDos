@@ -21,6 +21,11 @@ Template.lists.helpers({
     }
 });
 
+/** @this template instance object */
+Template.lists.onCreated(function(){
+    this.subscribe('lists');
+});
+
 Template.addList.events({
     /** Adds a new list to the Lists collection. */
     'submit form'(event){

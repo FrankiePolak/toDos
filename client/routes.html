@@ -1,17 +1,21 @@
 <!--routes.html: application pages-->
 
-<!--header and footer-->
+<!--header, footer, and content-->
 <template name="main">
   <h1>To-Dos</h1>
   {{> navigation}}
   {{#if currentUser}}
     {{> lists}}
   {{/if}}
-  {{> yield}}
+  {{> yield}} <!--content assigned by router-->
   <hr/>
   <p>Copyright &copy; Todos, 2014-2015.</p>
 </template>
 
 <template name="home">
   <p>Welcome to the To-Dos application.</p>
+</template>
+
+<template name="loading">
+  <p>Loading...</p>
 </template>

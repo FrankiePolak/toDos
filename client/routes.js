@@ -10,12 +10,16 @@ import './accounts.js';
 
 /** Route that appears on every page */
 Router.configure({
-    layoutTemplate: 'main'
+    layoutTemplate: 'main',
+    loadingTemplate: 'loading'
 });
 
 Router.route('/', {
     name: 'home',
-    template: 'home'
+    template: 'home',
+    /*waitOn: function(){
+	return Meteor.subscribe('lists');
+    }*/
 });
 
 Router.route('/register', {
@@ -33,6 +37,13 @@ Router.route('/login', {
  * @this the route
  */
 Router.route('/list/:_id', {
+    name: 'listPage',
+    template: 'listPage',
+    data: function(){
+	var currentList = this.params._id;
+	var currentUser = Meteor.userId();
+	return Lists.findOne({ _id: currentList, createdBy: currentUser });
+    },
     onBeforeAction: function(){
 	var currentUser = Meteor.userId();
 	if (currentUser){ // logged in
@@ -41,12 +52,11 @@ Router.route('/list/:_id', {
 	    this.render('login'); // switch to the login template
 	}
     },
-    name: 'listPage',
-    template: 'listPage',
-    data: function(){
+    waitOn: function(){
 	var currentList = this.params._id;
-	var currentUser = Meteor.userId();
-	return Lists.findOne({ _id: currentList, createdBy: currentUser });
-    },
+	//return [ Meteor.subscribe('lists'), Meteor.subscribe('todos', currentList) ]
+	return Meteor.subscribe('todos', currentList);
+    }
 });
+    
     

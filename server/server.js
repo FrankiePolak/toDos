@@ -1,5 +1,22 @@
-// import Meteor
+import { Meteor } from 'meteor/meteor';
 
-import '../both.js';
+import { Lists } from '../both.js';
+import { ToDos } from '../both.js';
 
-// server code goes here
+/**
+ * Publish the lists that belong to the current user.
+ * @this the publish handler object
+ */
+Meteor.publish('lists', function(){
+    var currentUser = this.userId;
+    return Lists.find({ createdBy: currentUser }); 
+});
+
+/**
+ * Publish the tasks from the current list that belong to the current user.
+ * @this the publish handler object
+ */
+Meteor.publish('todos', function(currentList){
+    var currentUser = this.userId;
+    return ToDos.find({ createdBy: currentUser, listId: currentList });
+});

@@ -5,10 +5,14 @@
   <h2>Lists</h2>
   {{> addList}}
   <p>
-    {{#each list}}
-      <a href="{{pathFor route='listPage'}}">{{name}}</a>
-      &nbsp;
-    {{/each}}
+    {{#if Template.subscriptionsReady}}
+      {{#each list}}
+        <a href="{{pathFor route='listPage'}}">{{name}}</a>
+        &nbsp;
+      {{/each}}
+    {{else}}
+      Loading...
+    {{/if}} 
   </p> 
 </template> 
 

@@ -1,3 +1,5 @@
+// server.js: stuff the runs on the server: publications
+
 import { Meteor } from 'meteor/meteor';
 
 import { Lists } from '../both.js';

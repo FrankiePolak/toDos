@@ -16,10 +16,7 @@ Router.configure({
 
 Router.route('/', {
     name: 'home',
-    template: 'home',
-    /*waitOn: function(){
-	return Meteor.subscribe('lists');
-    }*/
+    template: 'home', 
 });
 
 Router.route('/register', {
@@ -53,8 +50,7 @@ Router.route('/list/:_id', {
 	}
     },
     waitOn: function(){
-	var currentList = this.params._id;
-	//return [ Meteor.subscribe('lists'), Meteor.subscribe('todos', currentList) ]
+	var currentList = this.params._id; 
 	return Meteor.subscribe('todos', currentList);
     }
 });

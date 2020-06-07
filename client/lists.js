@@ -1,5 +1,6 @@
 // lists.js: functionality for To-Do lists, not invidividual todos
 
+// import Meteor
 import { Template } from 'meteor/templating';
 // import Router from iron:router
 // import Meteor.userId() from accounts-password
@@ -31,13 +32,13 @@ Template.addList.events({
     'submit form'(event){
 	event.preventDefault(); // prevent page from refreshing
 	var listName = $('[name=listName]').val(); // retrieve input
-	var createdBy = Meteor.userId();
-	Lists.insert({ // create a new list
-	    name: listName,
-	    createdBy
-	}, function(error, results){
-	    Router.go('listPage', { _id: results }); // redirects to the listPage with the id of the newly created list
-	});
-	$('[name=listName]').val(''); // blank the input after submitting
+	Meteor.call('createNewList', listName, function(error, results){
+	    if (error){
+		console.log(error.reason);
+	    } else {
+		Router.go('listPage', { _id: results }); // redirects to the listPage with the id of the newly created list
+		$('[name=listName]').val(''); // blank the input after submitting
+	    }
+	}); 
     },
 });

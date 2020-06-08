@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+// import Meteor
 
 import { ToDos } from '../both.js';
 
@@ -46,17 +47,15 @@ Template.addToDo.events({
      */
     'submit form'(event){
 	event.preventDefault(); // prevent the page from refreshing
-	var name = $('[name="toDoName"]').val(); // add a new toDo
-	var createdBy = Meteor.userId();
+	var name = $('[name="toDoName"]').val();
 	var listId = this._id;
-	ToDos.insert({
-	    name,
-	    completed: false,
-	    createdAt: new Date(),
-	    createdBy,
-	    listId
-	});
-	$('[name="toDoName"]').val(''); // clear the input box after submitting
+	Meteor.call('createListItem', name, listId, function(error){
+	    if (error){
+		console.log(error.reason);
+	    } else {
+		$('[name="toDoName"]').val(''); // clear the input box after submitting
+	    }
+	}); 
     },
 });
 
@@ -82,7 +81,9 @@ Template.toDoItem.events({
      * @this refers to the toDo currently being iterated through by the each block.
      */
     'change [type=checkbox]'(event){
-	ToDos.update(this._id, {$set: { completed: ! this.completed }}); 
+	var itemId = this._id;
+	var completed = this.completed;
+	Meteor.call('changeItemStatus', itemId, completed); 
     },
      /** 
      * Updates the toDo item as the user types. The toDo item loses focus if the user presses Return or Escape.
@@ -94,8 +95,9 @@ Template.toDoItem.events({
 	if (key === 13 || key === 27){ // Return or Escape
 	    $(event.target).blur(); // remove focus
 	} else {
-	    var name = $(event.target).val();
-	    ToDos.update(this._id, {$set: { name }}); // newer selection and field syntax
+	    var name = $(event.target).val(); 
+	    var itemId = this._id;
+	    Meteor.call('updateListItem', name, itemId);
 	}
     }, 
     /** 
@@ -107,7 +109,8 @@ Template.toDoItem.events({
 	var name = this.name; // the name of the toDo
 	var confirm = window.confirm("Delete \'" + name + "\' from the To-Do list?"); // ask if the user's sure
 	if (confirm){
-	    ToDos.remove(this._id); // newer selection syntax to remove a document
+	    var itemId = this._id;
+	    Meteor.call('removeListItem', itemId); 
 	}
     },
 });

@@ -1,4 +1,4 @@
-A to-do list application with multiple pages of lists.
+A to-do list application with multiple pages of lists. Based on http://meteortips.com/second-meteor-tutorial/
 
 Uses the unmaintained package iron:router. An internet search found no known security issues, and a code skim found nothing risky-looking. It was decided to continue using iron:router on 1 June 2020.
 
